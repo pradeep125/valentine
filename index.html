@@ -124,6 +124,13 @@ allow="autoplay">
 <div class="hearts" id="hearts"></div>
 
 <script>
+const intro = document.getElementById("intro");
+const proposal = document.getElementById("proposal");
+const finalCard = document.getElementById("final");
+const countdownEl = document.getElementById("countdown");
+const hearts = document.getElementById("hearts");
+
+/* COUNTDOWN */
 const targetDate = new Date("February 14, 2026 00:00:00").getTime();
 
 setInterval(() => {
@@ -131,7 +138,7 @@ setInterval(() => {
     const diff = targetDate - now;
 
     if (diff <= 0) {
-        document.getElementById("countdown").innerHTML = "It’s finally Valentine’s Day 💖";
+        countdownEl.innerHTML = "It’s finally Valentine’s Day 💖";
         return;
     }
 
@@ -140,13 +147,13 @@ setInterval(() => {
     const m = Math.floor((diff / (1000 * 60)) % 60);
     const s = Math.floor((diff / 1000) % 60);
 
-    document.getElementById("countdown").innerHTML =
-        `${d}d ${h}h ${m}m ${s}s left`;
+    countdownEl.innerHTML = `${d}d ${h}h ${m}m ${s}s left`;
 }, 1000);
 
+/* BUTTON ACTIONS */
 function next() {
-    intro.classList.add("hidden");
-    proposal.classList.remove("hidden");
+    intro.style.display = "none";
+    proposal.style.display = "block";
 }
 
 function moveNo() {
@@ -156,11 +163,12 @@ function moveNo() {
 }
 
 function accept() {
-    proposal.classList.add("hidden");
-    final.classList.remove("hidden");
+    proposal.style.display = "none";
+    finalCard.style.display = "block";
     startHearts();
 }
 
+/* HEART ANIMATION */
 function startHearts() {
     setInterval(() => {
         const heart = document.createElement("div");
@@ -173,5 +181,7 @@ function startHearts() {
 }
 </script>
 
+
 </body>
 </html>
+

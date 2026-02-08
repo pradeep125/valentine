@@ -92,13 +92,6 @@ button {
 
 <body>
 
-<!-- MUSIC (YouTube autoplay, muted first for mobile compatibility) -->
-<iframe width="0" height="0"
-src="https://www.youtube.com/embed/kqE5t0u6R4s?autoplay=1&loop=1&playlist=kqE5t0u6R4s"
-frameborder="0"
-allow="autoplay">
-</iframe>
-
 <div class="card" id="intro">
     <h1>Hey Ayushi ❤️</h1>
     <p>I’ve been waiting for this moment…</p>
@@ -154,8 +147,13 @@ setInterval(() => {
 function next() {
     intro.style.display = "none";
     proposal.style.display = "block";
-}
 
+    const music = document.getElementById("bgMusic");
+    music.volume = 0.6;
+    music.play().catch(() => {
+        console.log("Autoplay blocked until user gesture");
+    });
+}
 function moveNo() {
     const btn = document.getElementById("no");
     btn.style.left = Math.random() * (window.innerWidth - 100) + "px";
@@ -180,8 +178,12 @@ function startHearts() {
     }, 300);
 }
 </script>
-
+    
+<audio id="bgMusic" loop>
+  <source src="https://dl.sndup.net/7n5k/TujhMeinRabDikhtaHai.mp3" type="audio/mpeg">
+</audio>
 
 </body>
 </html>
+
 

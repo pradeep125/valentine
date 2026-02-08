@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Ayushi ❤️ Pradeep</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #ff5f8f, #ff8fa3);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    color: white;
+}
+
+.card {
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(12px);
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    width: 90%;
+    max-width: 420px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+    animation: fadeIn 1.2s ease;
+}
+
+.hidden { display: none; }
+
+h1 { margin-bottom: 10px; }
+p { font-size: 1.1rem; }
+
+button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 25px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin: 10px;
+    transition: 0.3s;
+}
+
+#yes {
+    background: #ff2e63;
+    color: white;
+}
+#yes:hover { transform: scale(1.1); }
+
+#no {
+    background: white;
+    color: #ff2e63;
+    position: absolute;
+}
+
+.timer {
+    font-size: 1.2rem;
+    margin: 20px 0;
+    font-weight: bold;
+}
+
+.hearts {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+}
+
+.heart {
+    position: absolute;
+    font-size: 22px;
+    animation: float 5s linear infinite;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes float {
+    from { transform: translateY(100vh); opacity: 1; }
+    to { transform: translateY(-10vh); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- MUSIC (YouTube autoplay, muted first for mobile compatibility) -->
+<iframe width="0" height="0"
+src="https://www.youtube.com/embed/kqE5t0u6R4s?autoplay=1&loop=1&playlist=kqE5t0u6R4s"
+frameborder="0"
+allow="autoplay">
+</iframe>
+
+<div class="card" id="intro">
+    <h1>Hey Ayushi ❤️</h1>
+    <p>I’ve been waiting for this moment…</p>
+    <div class="timer" id="countdown"></div>
+    <button onclick="next()">Continue</button>
+</div>
+
+<div class="card hidden" id="proposal">
+    <h1>Ayushi 💕</h1>
+    <p>You make my life beautiful in ways I can’t explain.</p>
+    <p><strong>Will you be my Valentine?</strong></p>
+    <button id="yes" onclick="accept()">YES 😍</button>
+    <button id="no" onmouseover="moveNo()">NO 🙃</button>
+</div>
+
+<div class="card hidden" id="final">
+    <h1>She said YES! 🎉💖</h1>
+    <p>Ayushi, you just made me the happiest person alive.</p>
+    <p>Forever yours,</p>
+    <h2>— Pradeep ❤️</h2>
+</div>
+
+<div class="hearts" id="hearts"></div>
+
+<script>
+const targetDate = new Date("February 14, 2026 00:00:00").getTime();
+
+setInterval(() => {
+    const now = new Date().getTime();
+    const diff = targetDate - now;
+
+    if (diff <= 0) {
+        document.getElementById("countdown").innerHTML = "It’s finally Valentine’s Day 💖";
+        return;
+    }
+
+    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const m = Math.floor((diff / (1000 * 60)) % 60);
+    const s = Math.floor((diff / 1000) % 60);
+
+    document.getElementById("countdown").innerHTML =
+        `${d}d ${h}h ${m}m ${s}s left`;
+}, 1000);
+
+function next() {
+    intro.classList.add("hidden");
+    proposal.classList.remove("hidden");
+}
+
+function moveNo() {
+    const btn = document.getElementById("no");
+    btn.style.left = Math.random() * (window.innerWidth - 100) + "px";
+    btn.style.top = Math.random() * (window.innerHeight - 50) + "px";
+}
+
+function accept() {
+    proposal.classList.add("hidden");
+    final.classList.remove("hidden");
+    startHearts();
+}
+
+function startHearts() {
+    setInterval(() => {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerHTML = "❤️";
+        heart.style.left = Math.random() * 100 + "vw";
+        hearts.appendChild(heart);

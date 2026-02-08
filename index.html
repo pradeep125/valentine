@@ -168,3 +168,10 @@ function startHearts() {
         heart.innerHTML = "❤️";
         heart.style.left = Math.random() * 100 + "vw";
         hearts.appendChild(heart);
+        setTimeout(() => heart.remove(), 5000);
+    }, 300);
+}
+</script>
+
+</body>
+</html>
